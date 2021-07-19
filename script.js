@@ -16,8 +16,27 @@ const alertOutput = /** @type HTMLInputElement */ (
 const water = document.getElementById("water");
 const waterIn = document.getElementById("water-in");
 const waterOut = document.getElementById("water-out");
+const chart = /** @type HTMLCanvasElement */ (
+  document.getElementById("chart")
+).getContext("2d");
 
 let waterlevel = Number(waterlevelInput.value);
+let previousLevels = [waterlevel];
+
+const chartWidth = chart.canvas.width;
+const chartHeight = chart.canvas.height;
+
+function updateChart() {
+  chart.clearRect(0, 0, chartWidth, chartHeight);
+  chart.moveTo(0, 0);
+  chart.lineTo(0, chartHeight);
+  chart.lineTo(chartWidth, chartHeight);
+  chart.stroke();
+  chart.fillStyle = "#94afff";
+  previousLevels.forEach((level, index) => {
+    chart.fillRect(index * 2 + 1, chartHeight - level * 2 - 1, 2, level * 2);
+  });
+}
 
 function update() {
   const inflow = Number(inflowInput.value);
@@ -35,6 +54,11 @@ function update() {
   } else {
     alertOutput.hidden = true;
   }
+  if (previousLevels.length === 100) {
+    previousLevels.shift();
+  }
+  previousLevels.push(waterlevel);
+  updateChart();
   inflowDisplay.textContent = inflowInput.value;
   outflowDisplay.textContent = outflowInput.value;
   waterlevelInput.value = String(Math.round(waterlevel));
