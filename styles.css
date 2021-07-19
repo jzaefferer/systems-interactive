@@ -1,0 +1,45 @@
+:root {
+  --water: #94afff;
+}
+
+body {
+  overflow: auto;
+}
+
+img {
+  max-width: none;
+}
+
+#output {
+  position: relative;
+}
+#water {
+  position: absolute;
+  bottom: 80px;
+  left: 120px;
+  width: 367px;
+  background: var(--water);
+  /* clip-path: path("M 0,200 L 0 110 A 110,90 0,0,1 240,100 L 200 340 z"); */
+  clip-path: path("M 0,0 L 367,0 Q 367,145 320,145 L 47,145 Q 0,145 0,0");
+}
+#water-in {
+  position: absolute;
+  width: 102px;
+  height: 10px;
+  top: 51px;
+  left: 8px;
+  background: var(--water);
+}
+#water-out {
+  position: absolute;
+  top: 263px;
+  left: 323px;
+  width: 11px;
+  height: 50px;
+  background: var(--water);
+}
+#alert {
+  background: yellow;
+  padding: 32px;
+  margin: 32px;
+}
